@@ -252,8 +252,8 @@ void showorder_dtails(vector<Customer>& customers,vector<Order>& orders){
             if(customeri.customer_id==orderi.order_id){
                 ++i;
                 cout<<setw(10)<<"product "<<i<<":"<<setw(10)<<orderi.product.name<<setw(10)<<orderi.product.count<<setw(10)<<orderi.product.price<<setw(10)<<orderi.discount<<setw(10)<<orderi.product.id_product<<setw(10)<<orderi.date<<endl;
-                cout<<setw(60)<<setfill('-')<<endl;
-                cout<<endl;
+                cout<<"---------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl;
+
             }
         }
     }
