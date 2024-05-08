@@ -1,17 +1,25 @@
+//
+
+
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include <vector>
 #include <sstream>
 #include <fstream>
 #include <iomanip>
 #include "product.h"
 #include "customer.h"
+#include "money.h"
 using namespace std;
 
 
 
 int main()
 {
+    string date;
+    cout<<"enter date: ";
+    cin>>date;
     int productid=add_id();
     int customerid=customer_id();
 
@@ -50,12 +58,15 @@ int main()
         }
         else if (choice == 5)
         {
+            opencustomer_showcustomer();
         }
         else if (choice == 6)
         {
+            opencustomer_detailsorder();
         }
         else if (choice == 7)
         {
+            money(date);
         }
         else if (choice == 0)
         {

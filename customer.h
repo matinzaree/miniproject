@@ -13,7 +13,7 @@ class Customer
 public:
     string name;
     int phone;
-    int totall_price;
+    int totall_price=0;
     int customer_id;
 };
 
@@ -45,7 +45,7 @@ void save_csid(int id){
 }
 
 void savecustomer(vector<Customer> customer){
-    fstream savecustomer("customer.csv",ios::out);
+    ofstream savecustomer("customer.csv",ios::out);
     if (!savecustomer.is_open()) {
         cerr << "Unable to save coustomer" << endl;
         return;
@@ -77,7 +77,7 @@ void save_order(Order order){
 
 void opencustomer() {
     vector<Customer> customers;
-    fstream customeropen("customer.csv");
+    ifstream customeropen("customer.csv");
     string line;
     while (getline(customeropen, line)) {
         stringstream ss(line);
@@ -95,7 +95,6 @@ void opencustomer() {
         customers.push_back(customer);
     }
     place_orderbyid(customers);
-    showcustomer(customers);
 }
 
 void place_orderbyid(vector<Customer>& customers) {
@@ -201,7 +200,7 @@ void place_order(int id){
     cin>>customer.phone;
     customer.customer_id=id;
     cout<<"your id: "<<id<<endl;
-    fstream savecustomer("customer.csv",ios::app);
+    ofstream savecustomer("customer.csv",ios::app);
     if (!savecustomer.is_open()) {
         cerr << "Unable to open file" << endl;
         return;
@@ -213,11 +212,105 @@ void place_order(int id){
     cin>>i;
 }
 
+void opencustomer_showcustomer() {
+    vector<Customer> customers;
+    ifstream customeropen("customer.csv");
+    string line;
+    while (getline(customeropen, line)) {
+        stringstream ss(line);
+        string name, ph, totall, crid;
+        getline(ss, crid, ',');
+        getline(ss, name, ',');
+        getline(ss, ph, ',');
+        getline(ss, totall);
+
+        int id = stoi(crid);
+        int phone = stoi(ph);
+        int totallprice = stoi(totall);
+
+        Customer customer{name, phone, totallprice, id};
+        customers.push_back(customer);
+    }
+    showcustomer(customers);
+}
+
 void showcustomer(vector<Customer>& customers){
     cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(10)<<"phone"<<setw(10)<<"totall price"<<endl;
     for(const Customer& customeri : customers){
         cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(10)<<customeri.phone<<setw(10)<<customeri.totall_price<<endl;
     }
+}
+
+void showorder_dtails(vector<Customer>& customers,vector<Order>& orders){
+
+    for(const Customer&customeri : customers){
+        int i=0;
+        cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(10)<<"phone"<<setw(10)<<"totall price"<<endl;
+        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(10)<<customeri.phone<<endl;
+        cout<<"\n"<<"product number"<<"name"<<setw(10)<<"count"<<setw(10)<<"price"<<setw(10)<<"discount"<<setw(10)<<"product id"<<setw(10)<<"date"<<endl;
+        for(const Order&orderi : orders){
+            if(customeri.customer_id==orderi.order_id){
+                ++i;
+                cout<<"product "<<i<<":"<<setw(10)<<orderi.product.name<<setw(10)<<orderi.product.count<<setw(10)<<orderi.product.price<<setw(10)<<orderi.discount<<setw(10)<<orderi.product.id_product<<setw(10)<<orderi.date<<endl;
+                cout<<setw(60)<<setfill('-')<<endl;
+            }
+        }
+    }
+
+}
+
+void opencustomer_detailsorder() {
+    vector<Customer> customers;
+    ifstream customeropen("customer.csv");
+    string line;
+    while (getline(customeropen, line)) {
+        stringstream ss(line);
+        string name, ph, totall, crid;
+        getline(ss, crid, ',');
+        getline(ss, name, ',');
+        getline(ss, ph, ',');
+        getline(ss, totall);
+
+        int id = stoi(crid);
+        int phone = stoi(ph);
+        int totallprice = stoi(totall);
+
+        Customer customer{name, phone, totallprice, id};
+        customers.push_back(customer);
+    }
+    vector<Order> orders;
+    Order order;
+    ifstream orderopen("order.csv");
+    if (!orderopen.is_open()){
+        cerr<<"unable to open\n";
+        return;
+    }else {
+        string line1;
+        while (getline(orderopen, line1)) {
+            stringstream ss(line);
+            string prname, prdcount, prdprice, prdid, ordate, orddiscount, ordid;
+            getline(ss, ordid, ',');
+            getline(ss, prname, ',');
+            getline(ss, prdcount, ',');
+            getline(ss, prdprice, ',');
+            getline(ss, orddiscount, ',');
+            getline(ss, ordate, ',');
+            getline(ss, prdid);
+
+
+            order.product.name = prname;
+            order.date = ordate;
+            order.order_id = stoi(ordid);
+            order.product.count = stoi(prdcount);
+            order.product.price = stoi(prdprice);
+            order.product.id_product = stoi(prdid);
+            order.discount = stoi(orddiscount);
+
+
+            orders.push_back(order);
+        }
+    }
+    showorder_dtails(customers,orders);
 }
 
 #endif //PRJ_CUSTOMER_H
