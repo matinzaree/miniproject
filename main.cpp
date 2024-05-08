@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <iomanip>
 #include "product.h"
 #include "customer.h"
 using namespace std;

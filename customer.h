@@ -29,6 +29,7 @@ public:
 void place_orderbyid(vector<Customer>& customers);
 void place_order(int id);
 void opencustomer();
+void showcustomer(vector<Customer>& customers);
 
 int customer_id(){
     int i=0;
@@ -70,7 +71,7 @@ void customer_massage(int &id){
 
 void save_order(Order order){
     ofstream save("order.csv", ios::app);
-    save<<order.order_id<<","<<order.product.name<<","<<order.product.count<<","<<order.product.price<<","<<order.product.id_product<<endl;
+    save<<order.order_id<<","<<order.product.name<<","<<order.product.count<<","<<order.product.price<<","<<order.discount<<","<<order.date<<","<<order.product.id_product<<endl;
     save.close();
 }
 
@@ -94,6 +95,7 @@ void opencustomer() {
         customers.push_back(customer);
     }
     place_orderbyid(customers);
+    showcustomer(customers);
 }
 
 void place_orderbyid(vector<Customer>& customers) {
@@ -143,12 +145,14 @@ void place_orderbyid(vector<Customer>& customers) {
             products.push_back(product);
         }
         file.close();
-        string product_name;
+        string product_name,date;
         Order order;
         Product product;
         int count,price,discount;
         cout<<"enter product name: ";
         cin>>product_name;
+        cout<<"enter date(2024-05-08): ";
+        cin>>date;
 
         for(Product& producti : products){
             if(producti.name==product_name){
@@ -171,6 +175,8 @@ void place_orderbyid(vector<Customer>& customers) {
                     order.product.name=producti.name;
                     order.product.count=count;
                     order.product.price=producti.price;
+                    order.discount=discount;
+                    order.date=date;
                     int h=(count*producti.price)-discount;
                     cout<<"totall price: "<<h<<endl;
                     customers[i].totall_price+=h;
@@ -205,6 +211,13 @@ void place_order(int id){
     cout<<"press 0 to menu: ";
     string i;
     cin>>i;
+}
+
+void showcustomer(vector<Customer>& customers){
+    cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(10)<<"phone"<<setw(10)<<"totall price"<<endl;
+    for(const Customer& customeri : customers){
+        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(10)<<customeri.phone<<setw(10)<<customeri.totall_price<<endl;
+    }
 }
 
 #endif //PRJ_CUSTOMER_H
