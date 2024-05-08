@@ -287,7 +287,7 @@ void opencustomer_detailsorder() {
     }else {
         string line1;
         while (getline(orderopen, line1)) {
-            stringstream ss(line);
+            stringstream ss(line1);
             string prname, prdcount, prdprice, prdid, ordate, orddiscount, ordid;
             getline(ss, ordid, ',');
             getline(ss, prname, ',');

@@ -1,4 +1,4 @@
-//
+//https://github.com/matinzaree/miniproject
 
 
 #include <iostream>
@@ -17,9 +17,6 @@ using namespace std;
 
 int main()
 {
-    string date;
-    cout<<"enter date: ";
-    cin>>date;
     int productid=add_id();
     int customerid=customer_id();
 
@@ -66,7 +63,7 @@ int main()
         }
         else if (choice == 7)
         {
-            money(date);
+            totallmoney();
         }
         else if (choice == 0)
         {
