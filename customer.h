@@ -235,9 +235,9 @@ void opencustomer_showcustomer() {
 }
 
 void showcustomer(vector<Customer>& customers){
-    cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(10)<<"phone"<<setw(10)<<"totall price"<<endl;
+    cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(15)<<"phone"<<setw(10)<<"totall price"<<endl;
     for(const Customer& customeri : customers){
-        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(10)<<customeri.phone<<setw(10)<<customeri.totall_price<<endl;
+        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(15)<<customeri.phone<<setw(10)<<customeri.totall_price<<endl;
     }
 }
 
@@ -245,14 +245,14 @@ void showorder_dtails(vector<Customer>& customers,vector<Order>& orders){
 
     for(const Customer&customeri : customers){
         int i=0;
-        cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(10)<<"phone"<<setw(10)<<"totall price"<<endl;
-        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(10)<<customeri.phone<<endl;
-        cout<<"\n"<<"product number"<<"name"<<setw(10)<<"count"<<setw(10)<<"price"<<setw(10)<<"discount"<<setw(10)<<"product id"<<setw(10)<<"date"<<endl;
+        cout<<setw(10)<<"customer id"<<setw(10)<<"name"<<setw(15)<<"phone"<<setw(10)<<"totall price"<<endl;
+        cout<<setw(10)<<customeri.customer_id<<setw(10)<<customeri.name<<setw(15)<<customeri.phone<<endl;
+        cout<<"\n"<<setw(10)<<"product number"<<setw(10)<<"name"<<setw(10)<<"count"<<setw(10)<<"price"<<setw(10)<<"discount"<<setw(10)<<"product id"<<setw(10)<<"date"<<endl;
         for(const Order&orderi : orders){
             if(customeri.customer_id==orderi.order_id){
                 ++i;
                 cout<<setw(10)<<"product "<<i<<":"<<setw(10)<<orderi.product.name<<setw(10)<<orderi.product.count<<setw(10)<<orderi.product.price<<setw(10)<<orderi.discount<<setw(10)<<orderi.product.id_product<<setw(10)<<orderi.date<<endl;
-                cout<<"---------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl;
+                cout<<"----------------------------------------------------------------------------------------------------------"<<endl;
 
             }
         }
